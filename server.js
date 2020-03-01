@@ -258,7 +258,7 @@ app.route('/api/Users/:id')
   .delete(insecurity.denyAll()) // Deleting users is forbidden entirely to keep login challenges solvable
 /* Products: Only GET is allowed in order to view products */
 app.post('/api/Products', insecurity.isAuthorized())
-// app.put('/api/Products/:id', insecurity.isAuthorized()); // = missing function-level access control vulnerability
+app.put('/api/Products/:id', insecurity.isAccounting()); // = missing function-level access control vulnerability
 app.delete('/api/Products/:id', insecurity.denyAll()) // Deleting products is forbidden entirely to keep the O-Saft url-change challenge solvable
 /* Challenges: GET list of challenges allowed. Everything else forbidden independent of authorization (hence the random secret) */
 app.post('/api/Challenges', insecurity.denyAll())
