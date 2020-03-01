@@ -22,6 +22,7 @@ module.exports = function placeOrder () {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
           const email = customer ? customer.data ? customer.data.email : '' : ''
+          const wallet = await models.Wallet.findOne({ where: { UserId: customer.UserId} });
           const orderId = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = `order_${orderId}.pdf`
           const doc = new PDFDocument()
@@ -95,6 +96,10 @@ module.exports = function placeOrder () {
             totalPrice += itemTotal
             totalPoints += itemBonus
           })
+
+          if(wallet.balance <= totalPrice){
+            next(new Error("User has not enough balance"))
+          }
           doc.moveDown()
           const discount = calculateApplicableDiscount(basket, req)
           let discountAmount = 0
