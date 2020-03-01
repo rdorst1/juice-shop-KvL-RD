@@ -177,8 +177,8 @@ app.use('/assets/i18n', verify.accessControlChallenges())
 app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
 /* /ftp directory browsing and file download */
-app.use('/ftp', serveIndex('ftp', { icons: true })), insecurity.isAuthorized()
-app.use('/ftp/:file', fileServer()), insecurity.isAuthorized()
+app.use('/ftp', insecurity.isAuthorized(), serveIndex('ftp', { icons: true }))
+app.use('/ftp/:file', insecurity.isAuthorized(), fileServer())
 
 /* /encryptionkeys directory browsing */
 app.use('/encryptionkeys', serveIndex('encryptionkeys', { icons: true, view: 'details' }))
