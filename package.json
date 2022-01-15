@@ -121,7 +121,7 @@
     "node-fetch": "2.1.2",
     "nyc": "^14.1.1",
     "protractor": "^5.4.3",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.5",
     "sinon": "^7.5.0",
     "sinon-chai": "^3.4.0",
     "socket.io-client": "^2.3.0",
